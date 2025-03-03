@@ -27,11 +27,11 @@ Specially for data integration scenarios following are the key options and consi
 When using Synapse link with delta lake option, Synapse link create and maintain the metadata for all the tables selected in Synapse Lake database on top of the delta lake data. With incremental update CSV option, Synapse database needs to be manually created and model.json files will be utilized to create and maintain the metadata.  
 
 ### Setup Source: Synapse link with delta lake 
-1. Run the setup script on the Synapse serverless database created by Synapse link. This will create stored procedure and functions in the database in dvtosql schema. [CreateUpdate_SetupScript](/Analytics/DataverseLink/EDL_To_SynapseLinkDV_DBSetup/Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript.sql)
+1. Run the setup script on the Synapse serverless database created by Synapse link. This will create stored procedure and functions in the database in dvtosql schema. [CreateUpdate_SetupScript](Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript.sql)
 
 ### Setup Source: Synapse link with incremental CSV 
-1. Create a new database in Synapse Serverless SQL pool and master key [CreateSourceDatabaseAndMasterKey](/Analytics/DataverseLink/EDL_To_SynapseLinkDV_DBSetup/Step0_EDL_To_SynapseLinkDV_CreateSourceDatabaseAndMasterKey.sql)
-2. Run the setup script on the database created in step 1. This will create stored procedure and functions in the database. [CreateUpdate_SetupScript](/Analytics/DataverseLink/EDL_To_SynapseLinkDV_DBSetup/Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript.sql)
+1. Create a new database in Synapse Serverless SQL pool and master key [CreateSourceDatabaseAndMasterKey](Step0_EDL_To_SynapseLinkDV_CreateSourceDatabaseAndMasterKey.sql)
+2. Run the setup script on the database created in step 1. This will create stored procedure and functions in the database. [CreateUpdate_SetupScript](Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript.sql)
 
 
 ## Setup Target
@@ -39,11 +39,11 @@ Depending on your target database, run appropriate script on the target database
 
 ### Setup Target: Azure SQL Database, SQL Managed instance or SQL Server On-prem database
 When using the SQL Server database as destination, run this setup script on the target SQL database, script create the a controltable, stored procedure and functions to faciliate copy and merge data to destination database 
-[CreateUpdate_SetupScript](/Analytics/DataverseLink/EDL_To_SynapseLinkDV_DBSetup/Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript.sql)
+[CreateUpdate_SetupScript](Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript.sql)
 
 ### Setup Target: Azure Synapse Dedicated Pool
 When using Synapse dedicated pool as destination database, run bellow setup script on the target Synapse dedicated pool database. Script create the a controltable, stored procedure and functions to copy and merge data to destination database 
-[CreateUpdate_SetupScript_DW](/Analytics/DataverseLink/CloudDataWarehouse_SynapseDW/Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript_DW.sql)
+[CreateUpdate_SetupScript_DW](Step1_EDL_To_SynapseLinkDV_CreateUpdate_SetupScript_DW.sql)
 
 ## Setup Synapse Pipeline to copy data to relational database or data warehouse 
 To copy Dynamics 365 data available in data lake from Synapse link, to relational database or existing data warehouse solution, you can use ETL tool like ADF, Synapse pipeline, SSIS or other third party tool.Following is a sample generic pipeline template to copy the data using Synapse pipeline.The purpose of this template is to provide a generic open-source solution highlighting the concept that can be further customized and productionize for your use cases. The solution is primarily metadata driven pipeline that uses TSQL scripts/stored-procedures (part of the setup script) to generate metadata, track changes in tables with controltable using high-watermark fields, copy the data to target database and then de-duplicate and merge data to final table in destination.
@@ -54,7 +54,7 @@ To copy Dynamics 365 data available in data lake from Synapse link, to relationa
 
 	![Source_Database_Linked_Services.jpg](Source_Database_Linked_Services.jpg)
 
-2. Download Synapse pipeline template from the following file [Pipeline_DVLinkToSQL_IncrementalCopy](/Analytics/DataverseLink/DataIntegration/DVLinkToSQL_IncrementalCopy.zip)
+2. Download Synapse pipeline template from the following file [Pipeline_DVLinkToSQL_IncrementalCopy](DVLinkToSQL_IncrementalCopy (2).zip)
 3. Import the pipeline template from the template downloaded and select the linked services created in step 1.
 ![ImportTemplate.jpg](ImportTemplate.jpg)
 
@@ -80,7 +80,7 @@ To copy Dynamics 365 data available in data lake from Synapse link, to relationa
 ## Derived tables
 One of the known limitations with Synapse Link is derived tables, this is outlined in [Known limitations with finance and operations tables](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/azure-synapse-link-select-fno-data#known-limitations-with-finance-and-operations-tables)
 In order to assist in identifying the tables that are required to be exported so that the derived tables can be created correctly there is a SQL script which can be executed on a CHE or a sandbox environment. 
-[Get derived tables](/Analytics/DataverseLink/DataIntegration/AdditionalScripts/get_derivetables.sql)
+[Get derived tables](get_derivetables.sql)
 
 ## Convert Id to RecId
 
