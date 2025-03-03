@@ -1,17 +1,3 @@
-﻿-- Feb 22 - removing version number filter from the incremental query as during the inital sync - the data can be out of order of version number
--- Feb 12, 2024 - updated logic to getNewTables to copy from delta table using max(SinkModifiedOn)
--- Dec 29, 2023 - Added options to derived tables SQL to fix for incremental CSV version
--- Dec 21 - bug fix on data entity - filter deleted rows 
---Dec 13 - Filter deleted rows from delta tables  
---Dec 9 - Added support for enum translation from globaloptionset 
--- added support for data entity removing mserp_ prefix from column name
--- fixed bug in derived table view creation - when there not all child tables are present
---Last updated - Nov 28, 2023 - Fixed bug syntax error while creating/updating derived base tables views with joins of child table
--- June 19, 2024 - Updated source_GetNewDataToCopy to support more tables
--- June 19, 2024 - 2nd update - support for enum translation including BYOD enums
--- June 20, 2024 - Don't need to translate enums
--- July 08, 2024 - Fixes to support BYOD enums
--- Feb 12, 2025 - Removing dependencies from conversionresults folders in StoredProcedure source_GetNewDataToCopy to identify changes in delta lake 
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'dvtosql')
 BEGIN
     EXEC('CREATE SCHEMA dvtosql')
